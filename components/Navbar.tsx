@@ -24,6 +24,17 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleLanguage = () => {
     setLanguage(language === 'ru' ? 'en' : 'ru');
   };
@@ -57,17 +68,17 @@ const Navbar: React.FC = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 border-b hardware-accelerated ${
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 border-b hardware-accelerated ${
         isScrolled 
           ? 'bg-black/80 backdrop-blur-lg py-4 border-white/5 shadow-2xl' 
           : 'bg-transparent py-6 border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-20">
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-[110]">
         <a 
           href="#hero" 
           onClick={(e) => handleScrollTo(e, 'hero')}
-          className="text-2xl font-bold tracking-tighter text-white font-serif italic relative group z-50 mix-blend-difference"
+          className="text-2xl font-bold tracking-tighter text-white font-serif italic relative group z-[120]"
         >
           NYC <span className="text-nyc-taxi not-italic font-sans">Vibes</span>
         </a>
@@ -81,7 +92,7 @@ const Navbar: React.FC = () => {
               onClick={(e) => handleScrollTo(e, link.id)}
               className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300 hover:text-white transition-all py-2 relative group"
             >
-              <span className="relative z-10 mix-blend-difference">{link.name}</span>
+              <span className="relative z-10">{link.name}</span>
               <span className="absolute bottom-0 left-0 w-full h-[1px] bg-nyc-taxi transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-right group-hover:origin-left"></span>
             </a>
           ))}
@@ -100,7 +111,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Toggle */}
-        <div className="flex items-center gap-4 lg:hidden z-50">
+        <div className="flex items-center gap-4 lg:hidden z-[120]">
             <button 
               onClick={toggleLanguage}
               className="px-2 py-1 rounded text-[10px] font-bold text-white uppercase bg-white/10 border border-white/10 backdrop-blur-sm"
@@ -122,7 +133,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white/5 z-10">
+      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white/5 z-[110]">
         <motion.div 
           className="h-full bg-gradient-to-r from-nyc-taxi via-yellow-200 to-nyc-taxi shadow-[0_0_15px_rgba(251,191,36,0.6)] origin-left"
           style={{ scaleX }}
@@ -133,22 +144,26 @@ const Navbar: React.FC = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:hidden fixed inset-0 bg-zinc-950/98 backdrop-blur-2xl z-40 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:hidden fixed inset-0 bg-zinc-950 z-[105] flex flex-col items-center justify-center"
           >
-             <div className="flex flex-col items-center space-y-6 md:space-y-8">
+             {/* Background Decorative Elements */}
+             <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-nyc-taxi/5 rounded-full blur-[120px]"></div>
+             <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-white/5 rounded-full blur-[120px]"></div>
+
+             <div className="flex flex-col items-center space-y-6 md:space-y-8 relative z-10">
                {navLinks.map((link, idx) => (
                  <motion.a 
                    key={link.name} 
                    href={`#${link.id}`} 
                    onClick={(e) => handleScrollTo(e, link.id)}
-                   initial={{ opacity: 0, y: 20 }}
-                   animate={{ opacity: 1, y: 0 }}
-                   transition={{ delay: 0.1 + idx * 0.05 }}
-                   className="text-white text-3xl md:text-5xl font-serif font-bold italic hover:text-nyc-taxi transition-colors transform hover:scale-105 duration-300"
+                   initial={{ opacity: 0, x: 20 }}
+                   animate={{ opacity: 1, x: 0 }}
+                   transition={{ delay: 0.2 + idx * 0.05 }}
+                   className="text-white text-4xl md:text-6xl font-serif font-bold italic hover:text-nyc-taxi transition-colors transform hover:scale-105 duration-300"
                  >
                    {link.name}
                  </motion.a>
@@ -158,8 +173,8 @@ const Navbar: React.FC = () => {
              <motion.div 
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
-               transition={{ delay: 0.5 }}
-               className="absolute bottom-12 flex flex-col items-center gap-4"
+               transition={{ delay: 0.6 }}
+               className="absolute bottom-12 flex flex-col items-center gap-4 z-10"
              >
                 <div className="w-12 h-px bg-nyc-taxi/50"></div>
                 <span className="text-zinc-500 text-[10px] uppercase tracking-[0.4em] font-bold">New York City</span>
