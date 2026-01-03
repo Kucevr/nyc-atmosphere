@@ -77,7 +77,7 @@ const Soundscape: React.FC = () => {
       <audio ref={culinaryAudio} src="/audio/cafe_ambience.mp3" loop preload="none" />
       <audio ref={historyAudio} src="/audio/jazz_ambience.mp3" loop preload="none" />
 
-      {/* Equalizer / Mute Button */}
+      {/* Equalizer / Mute Button - Hidden for now
       <div className="fixed bottom-8 left-8 z-[10000] flex items-center gap-4">
         <button 
           onClick={toggleMute}
@@ -102,12 +102,12 @@ const Soundscape: React.FC = () => {
             </div>
           )}
           
-          {/* Tooltip */}
           <span className="absolute left-full ml-4 px-3 py-1 bg-black/80 text-[10px] text-white uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/5">
             {isMuted ? 'Unmute Atmosphere' : 'Mute Atmosphere'}
           </span>
         </button>
       </div>
+      */}
     </>
   );
 };
