@@ -28,7 +28,7 @@ export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
     return {
       avifSrc: `${base}.avif`,
       webpSrc: `${base}.webp`,
-      thumbSrc: `${base}-thumb.jpg`
+      thumbSrc: `${base}-thumb.webp`
     };
   }, [src]);
 

@@ -262,7 +262,7 @@ export const content = {
           price: '$2.90',
           status: '24/7',
           tip: 'Используйте OMNY на турникетах. Избегайте пустых вагонов.',
-          image: '/items/MTA_Subway.JPG'
+          image: '/items/MTA_Subway.webp'
         },
         {
           id: 'taxi',
@@ -271,7 +271,7 @@ export const content = {
           price: '$3.00+',
           status: 'On Demand',
           tip: 'Зеленые такси ездят только в верхнем Манхэттене и боро.',
-          image: '/items/Yellow_Cab.JPG'
+          image: '/items/Yellow_Cab.webp'
         },
         {
           id: 'walk',
@@ -280,7 +280,7 @@ export const content = {
           price: 'Free',
           status: 'Всегда',
           tip: 'Авеню длинные, улицы короткие. 20 блоков ~ 1 миля.',
-          image: '/items/Walking.JPG'
+          image: '/items/Walking.webp'
         }
       ]
     },
@@ -306,6 +306,21 @@ export const content = {
       weather: 'Погода',
       weatherCondition: 'Ясно',
       crowd: 'Людей на Таймс-сквер',
+      close: 'Закрыть окно',
+      legalDocs: {
+        privacy: {
+          title: 'Политика конфиденциальности',
+          content: 'Мы глубоко ценим ваше доверие и стремимся обеспечить максимальную прозрачность в вопросах обработки данных.\n\n1. Сбор данных: Данный сайт является некоммерческим демонстрационным проектом. Мы не собираем персональные данные в автоматическом режиме.\n\n2. Форма подписки: Если вы добровольно указываете свой email, он используется исключительно для демонстрации работы сервиса рассылок и не передается третьим лицам.\n\n3. Cookies: Мы используем только технические cookies, необходимые для корректной работы языковых настроек и анимаций.\n\n4. Безопасность: Все данные защищены современными протоколами шифрования.'
+        },
+        terms: {
+          title: 'Условия использования',
+          content: 'Добро пожаловать на NYC Vibes. Используя этот сайт, вы соглашаетесь со следующими положениями:\n\n1. Авторские права: Весь контент (тексты, дизайн, оптимизированные медиафайлы) защищен авторским правом. Использование материалов в коммерческих целях без согласования запрещено.\n\n2. Отказ от ответственности: Информация предоставляется "как есть". Мы стараемся поддерживать актуальность данных о погоде и времени, но не гарантируем их абсолютную точность в реальном времени.\n\n3. Внешние ссылки: Мы не несем ответственности за содержание сторонних ресурсов, на которые ведут ссылки из разделов "Культура" или "Гастрономия".'
+        },
+        sitemap: {
+          title: 'Карта сайта',
+          content: 'Навигация по мегаполису:\n\n• Главная — Погружение в атмосферу\n• Достопримечательности — Иконы города\n• Районы — Душа Нью-Йорка\n• Культура — Культурный код\n• Гастрономия — Вкус города\n• История — Карта времени\n• Транспорт — Город в движении\n• AI-Консьерж — Ваш персональный гид'
+        }
+      }
     }
   },
   en: {
@@ -567,7 +582,7 @@ export const content = {
           price: '$2.90',
           status: '24/7',
           tip: 'Use OMNY at turnstiles. Avoid empty cars.',
-          image: '/items/MTA_Subway.JPG'
+          image: '/items/MTA_Subway.webp'
         },
         {
           id: 'taxi',
@@ -576,7 +591,7 @@ export const content = {
           price: '$3.00+',
           status: 'On Demand',
           tip: 'Green cabs only operate in Upper Manhattan & Boroughs.',
-          image: '/items/Yellow_Cab.JPG'
+          image: '/items/Yellow_Cab.webp'
         },
         {
           id: 'walk',
@@ -585,7 +600,7 @@ export const content = {
           price: 'Free',
           status: 'Always',
           tip: 'Avenues are long, streets are short. 20 blocks ~ 1 mile.',
-          image: '/items/Walking.JPG'
+          image: '/items/Walking.webp'
         }
       ]
     },
@@ -611,6 +626,21 @@ export const content = {
       weather: 'Weather',
       weatherCondition: 'Clear',
       crowd: 'Times Sq Crowd',
+      close: 'Close Window',
+      legalDocs: {
+        privacy: {
+          title: 'Privacy Policy',
+          content: 'We value your trust and strive to ensure maximum transparency regarding data processing.\n\n1. Data Collection: This website is a non-commercial demonstration project. We do not collect personal data automatically.\n\n2. Subscription Form: If you voluntarily provide your email, it is used exclusively to demonstrate the newsletter service and is not shared with third parties.\n\n3. Cookies: We only use technical cookies necessary for the correct operation of language settings and animations.\n\n4. Security: All data is protected by modern encryption protocols.'
+        },
+        terms: {
+          title: 'Terms of Use',
+          content: 'Welcome to NYC Vibes. By using this site, you agree to the following terms:\n\n1. Copyright: All content (text, design, optimized media) is protected by copyright. Commercial use of site materials without prior consent is prohibited.\n\n2. Disclaimer: Information is provided "as is". We strive to maintain up-to-date weather and time data but do not guarantee absolute real-time accuracy.\n\n3. External Links: We are not responsible for the content of third-party resources linked in the "Culture" or "Culinary" sections.'
+        },
+        sitemap: {
+          title: 'Sitemap',
+          content: 'Navigating the Metropolis:\n\n• Home — Atmospheric Immersion\n• Attractions — City Icons\n• Neighborhoods — Soul of NYC\n• Culture — Cultural Code\n• Culinary — Taste of the City\n• History — Time Map\n• Transport — City in Motion\n• AI Concierge — Your Personal Guide'
+        }
+      }
     }
   }
 };

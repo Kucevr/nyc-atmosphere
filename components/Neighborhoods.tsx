@@ -7,14 +7,14 @@ import { ChevronLeft, ChevronRight, X, Maximize2, Map } from 'lucide-react';
 import { SmoothImage } from './SmoothImage';
 
 const images = [
-  "/items/SoHo.JPG", // SoHo
-  "/items/DUMBO.JPG", // DUMBO
-  "/items/Greenwich_Village.JPG", // Greenwich
-  "/items/Chinatown.JPG", // Chinatown
-  "/items/williamsburg.jpg", // Williamsburg
-  "/items/Harlem.jpg.webp", // Harlem
-  "/items/Chelsea.jpg", // Chelsea
-  "/items/Upper_East_Side_NYC.jpg", // UES
+  "/items/SoHo.webp", // SoHo
+  "/items/DUMBO.webp", // DUMBO
+  "/items/Greenwich_Village.webp", // Greenwich
+  "/items/Chinatown.webp", // Chinatown
+  "/items/williamsburg.webp", // Williamsburg
+  "/items/Harlem.webp", // Harlem
+  "/items/Chelsea.webp", // Chelsea
+  "/items/Upper_East_Side_NYC.webp", // UES
 ];
 
 const Neighborhoods: React.FC = () => {

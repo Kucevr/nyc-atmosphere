@@ -7,12 +7,12 @@ import { X, ArrowUpRight, ChevronLeft, ChevronRight, MapPin } from 'lucide-react
 import { SmoothImage } from './SmoothImage';
 
 const images = {
-  '1': '/items/TimesSquare.JPG', // Times Square
-  '2': '/items/CentralPark.JPG', // Central Park
-  '3': '/items/EmpireState.JPG', // Empire State
-  '4': '/items/BrooklynBridge.JPG', // Brooklyn Bridge
-  '5': '/items/Statue_of_Liberty.JPG', // Statue of Liberty
-  '6': '/items/TheMet.JPG', // The Met
+  '1': '/items/TimesSquare.webp', // Times Square
+  '2': '/items/CentralPark.webp', // Central Park
+  '3': '/items/EmpireState.webp', // Empire State
+  '4': '/items/BrooklynBridge.webp', // Brooklyn Bridge
+  '5': '/items/Statue_of_Liberty.webp', // Statue of Liberty
+  '6': '/items/TheMet.webp', // The Met
 };
 
 const Attractions: React.FC = () => {

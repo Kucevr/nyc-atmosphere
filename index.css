@@ -34,6 +34,11 @@ html {
   background: var(--color-nyc-taxi);
 }
 
+.optimize-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
 /* Grain Animation */
 @keyframes grain {
   0%, 100% { transform: translate(0, 0); }

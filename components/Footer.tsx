@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, ArrowUp, Instagram, Twitter, Facebook, Mail } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Heart, ArrowUp, Instagram, Twitter, Facebook, Mail, X, Shield, FileText, Map as MapIcon } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Reveal } from './Reveal';
 
@@ -8,6 +10,7 @@ const Footer: React.FC = () => {
   const [time, setTime] = useState('');
   const [weather, setWeather] = useState({ temp: '...', condition: '...' });
   const [crowd, setCrowd] = useState(0);
+  const [activeLegal, setActiveLegal] = useState<'privacy' | 'terms' | 'sitemap' | null>(null);
 
   useEffect(() => {
     const updateTime = () => {
@@ -113,9 +116,30 @@ const Footer: React.FC = () => {
                 <div>
                    <h4 className="text-nyc-taxi text-xs font-bold uppercase tracking-[0.2em] mb-6">{t.footer.links.legal}</h4>
                    <ul className="space-y-4 text-sm text-gray-400 font-light">
-                      <li><a href="#" className="hover:text-white transition-colors">{t.footer.privacy}</a></li>
-                      <li><a href="#" className="hover:text-white transition-colors">{t.footer.terms}</a></li>
-                      <li><a href="#" className="hover:text-white transition-colors">{t.footer.sitemap}</a></li>
+                      <li>
+                        <button 
+                          onClick={() => setActiveLegal('privacy')} 
+                          className="hover:text-white transition-colors cursor-pointer text-left"
+                        >
+                          {t.footer.privacy}
+                        </button>
+                      </li>
+                      <li>
+                        <button 
+                          onClick={() => setActiveLegal('terms')} 
+                          className="hover:text-white transition-colors cursor-pointer text-left"
+                        >
+                          {t.footer.terms}
+                        </button>
+                      </li>
+                      <li>
+                        <button 
+                          onClick={() => setActiveLegal('sitemap')} 
+                          className="hover:text-white transition-colors cursor-pointer text-left"
+                        >
+                          {t.footer.sitemap}
+                        </button>
+                      </li>
                    </ul>
                 </div>
              </Reveal>
@@ -173,6 +197,63 @@ const Footer: React.FC = () => {
             </span>
         </div>
       </div>
+
+      {/* Legal Modal */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {activeLegal && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-6">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setActiveLegal(null)}
+                className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="relative w-full max-w-2xl bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+              >
+                <div className="p-6 md:p-8 border-b border-white/5 flex justify-between items-center bg-zinc-900/50 backdrop-blur-md">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-nyc-taxi/10 flex items-center justify-center text-nyc-taxi">
+                      {activeLegal === 'privacy' && <Shield size={20} />}
+                      {activeLegal === 'terms' && <FileText size={20} />}
+                      {activeLegal === 'sitemap' && <MapIcon size={20} />}
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-serif font-bold text-white">
+                      {t.footer.legalDocs[activeLegal].title}
+                    </h3>
+                  </div>
+                  <button 
+                    onClick={() => setActiveLegal(null)}
+                    className="p-2 hover:bg-white/5 rounded-full transition-colors text-gray-400 hover:text-white"
+                  >
+                    <X size={24} />
+                  </button>
+                </div>
+                <div className="p-6 md:p-8 max-h-[60vh] overflow-y-auto custom-scrollbar bg-black/20">
+                  <div className="text-gray-300 leading-relaxed whitespace-pre-line font-light text-sm md:text-base">
+                    {t.footer.legalDocs[activeLegal].content}
+                  </div>
+                </div>
+                <div className="p-6 bg-zinc-900 border-t border-white/5 flex justify-center">
+                  <button 
+                    onClick={() => setActiveLegal(null)}
+                    className="px-8 py-3 bg-white text-black text-xs font-bold uppercase tracking-[0.2em] rounded-full hover:bg-nyc-taxi transition-all transform hover:scale-105 active:scale-95"
+                  >
+                    {t.footer.close}
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </footer>
   );
 };

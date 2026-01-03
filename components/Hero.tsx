@@ -60,9 +60,10 @@ const Hero: React.FC = () => {
           loop 
           playsInline
           preload="auto"
-          poster="/items/TimesSquare.JPG"
+          poster="/items/TimesSquare.webp"
         >
-           <source src="/items/Herovideo.MP4" type="video/mp4" />
+           <source src="/items/Herovideo.webm" type="video/webm" />
+           <source src="/items/Herovideo.mp4" type="video/mp4" />
         </video>
         {/* Cinematic Gradient Overlays */}
         <div className="absolute inset-0 bg-black/25 mix-blend-multiply"></div>

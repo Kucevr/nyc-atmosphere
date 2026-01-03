@@ -32,7 +32,7 @@ const Culture: React.FC = () => {
             <Reveal width="100%" className="h-full">
                 <div className="h-full w-full relative">
                     <SmoothImage 
-                        src="/items/CulturalCode1.JPG" 
+                        src="/items/CulturalCode1.webp" 
                         alt="Broadway" 
                         className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] filter brightness-[0.85] group-hover:brightness-100"
                         containerClassName="w-full h-full absolute inset-0"
@@ -62,7 +62,7 @@ const Culture: React.FC = () => {
              <Reveal width="100%" className="h-full">
                 <div className="h-full w-full relative">
                      <SmoothImage 
-                        src="/items/SoHo Fashion.jpg.webp" 
+                        src="/items/SoHo.webp" 
                         alt="Fashion" 
                         className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-200 ease-out"
                         containerClassName="w-full h-full absolute inset-0"
@@ -84,7 +84,7 @@ const Culture: React.FC = () => {
              <Reveal width="100%" className="h-full">
                 <div className="h-full w-full relative">
                     <SmoothImage 
-                        src="/items/CulturalCode3.JPG" 
+                        src="/items/CulturalCode3.webp" 
                         alt="Jazz" 
                         className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity duration-200 ease-out"
                         containerClassName="w-full h-full absolute inset-0"
@@ -108,7 +108,7 @@ const Culture: React.FC = () => {
              <Reveal width="100%" className="h-full">
                 <div className="h-full w-full relative">
                     <SmoothImage 
-                        src="/items/CulturalCode4.JPG" 
+                        src="/items/CulturalCode4.webp" 
                         alt="Museums" 
                         className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity duration-200 ease-out"
                         containerClassName="w-full h-full absolute inset-0"
@@ -132,7 +132,7 @@ const Culture: React.FC = () => {
              <Reveal width="100%" className="h-full">
                 <div className="h-full w-full relative">
                     <SmoothImage 
-                        src="/items/CulturalCode2.JPG" 
+                        src="/items/CulturalCode2.webp" 
                         alt="Nightlife" 
                         className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity duration-200 ease-out"
                         containerClassName="w-full h-full absolute inset-0"

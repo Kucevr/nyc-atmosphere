@@ -34,7 +34,7 @@ const Culinary: React.FC = () => {
                     <div className="sticky top-24">
                         <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-xl border border-white/10 aspect-[4/5] group">
                             <SmoothImage 
-                                src="/items/CityTastes.jpg" 
+                                src="/items/CityTastes.webp" 
                                 alt="NYC Dining" 
                                 className="w-full h-full object-cover filter brightness-[0.9] group-hover:brightness-100 transition-[filter] duration-200 ease-out" 
                                 containerClassName="w-full h-full absolute inset-0"
