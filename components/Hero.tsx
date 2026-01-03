@@ -59,6 +59,7 @@ const Hero: React.FC = () => {
           muted
           loop 
           playsInline
+          preload="auto"
           poster="/items/TimesSquare.JPG"
         >
            <source src="/items/Herovideo.MP4" type="video/mp4" />
@@ -106,7 +107,7 @@ const Hero: React.FC = () => {
             <div className="h-12 md:h-24"></div> {/* Spacer for subtitle overlapping */}
 
             <Reveal delay={600}>
-            <p className="text-base md:text-xl text-gray-300 mb-8 md:mb-12 max-w-xl font-light leading-relaxed border-l border-white/30 pl-6 md:pl-8 backdrop-blur-sm">
+            <p className="text-sm md:text-xl text-gray-300 mb-8 md:mb-12 max-w-xl font-light leading-relaxed border-l border-white/30 pl-6 md:pl-8 backdrop-blur-sm">
                 {t.hero.description}
             </p>
             </Reveal>

@@ -108,10 +108,15 @@ const Navbar: React.FC = () => {
               {language === 'en' ? 'EN' : 'RU'}
             </button>
             <button 
-              className="text-white hover:text-nyc-taxi transition-colors p-1"
+              className="relative w-10 h-10 flex items-center justify-center text-white hover:text-nyc-taxi transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              <div className="relative w-6 h-5">
+                <span className={`absolute left-0 block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'rotate-45 top-2' : 'top-0'}`}></span>
+                <span className={`absolute left-0 block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out top-2 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                <span className={`absolute left-0 block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${isMobileMenuOpen ? '-rotate-45 top-2' : 'top-4'}`}></span>
+              </div>
             </button>
         </div>
       </div>
@@ -125,24 +130,43 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden fixed inset-0 bg-zinc-950/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center transition-all duration-500 ${isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-         <div className="flex flex-col items-center space-y-8">
-           {navLinks.map((link, idx) => (
-             <a 
-               key={link.name} 
-               href={`#${link.id}`} 
-               onClick={(e) => handleScrollTo(e, link.id)}
-               className="text-white text-4xl font-serif font-bold italic hover:text-nyc-taxi transition-colors transform hover:scale-110 duration-300"
-               style={{ transitionDelay: `${idx * 50}ms` }}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:hidden fixed inset-0 bg-zinc-950/98 backdrop-blur-2xl z-40 flex flex-col items-center justify-center"
+          >
+             <div className="flex flex-col items-center space-y-6 md:space-y-8">
+               {navLinks.map((link, idx) => (
+                 <motion.a 
+                   key={link.name} 
+                   href={`#${link.id}`} 
+                   onClick={(e) => handleScrollTo(e, link.id)}
+                   initial={{ opacity: 0, y: 20 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ delay: 0.1 + idx * 0.05 }}
+                   className="text-white text-3xl md:text-5xl font-serif font-bold italic hover:text-nyc-taxi transition-colors transform hover:scale-105 duration-300"
+                 >
+                   {link.name}
+                 </motion.a>
+               ))}
+             </div>
+             
+             <motion.div 
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               transition={{ delay: 0.5 }}
+               className="absolute bottom-12 flex flex-col items-center gap-4"
              >
-               {link.name}
-             </a>
-           ))}
-         </div>
-         <div className="absolute bottom-10 text-zinc-500 text-xs uppercase tracking-widest">
-            New York City
-         </div>
-      </div>
+                <div className="w-12 h-px bg-nyc-taxi/50"></div>
+                <span className="text-zinc-500 text-[10px] uppercase tracking-[0.4em] font-bold">New York City</span>
+             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

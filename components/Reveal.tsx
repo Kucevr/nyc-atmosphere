@@ -46,6 +46,7 @@ export const Reveal: React.FC<RevealProps> = React.memo(({
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         className={`${width === '100%' ? 'w-full' : ''} ${className.includes('h-full') ? 'h-full' : ''}`}
+        style={{ height: className.includes('h-full') ? '100%' : 'auto' }}
       >
         {children}
       </motion.div>

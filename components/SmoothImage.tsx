@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 
 interface SmoothImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   containerClassName?: string;
+  priority?: boolean;
 }
 
 export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
@@ -9,6 +10,7 @@ export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
   containerClassName = '',
   alt,
   src,
+  priority = false,
   ...props 
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -48,8 +50,8 @@ export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
           {...props}
           src={src}
           alt={alt}
-          loading="lazy"
-          decoding="async"
+          loading={priority ? "eager" : "lazy"}
+          decoding={priority ? "sync" : "async"}
           onLoad={handleLoad}
           className={`${className} transition-all duration-700 ease-out ${
             isLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-2xl scale-110'

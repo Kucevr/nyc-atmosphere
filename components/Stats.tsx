@@ -81,14 +81,14 @@ const Stats: React.FC = () => {
   ];
 
   return (
-    <section id="stats" className="relative bg-nyc-black py-24 border-y border-white/5 overflow-hidden">
+    <section id="stats" className="relative bg-nyc-black py-16 md:py-24 border-y border-white/5 overflow-hidden optimize-visibility" style={{ containIntrinsicSize: '1px 400px' }}>
       {/* Abstract Grid Background */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
            style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat, idx) => (
             <Reveal key={idx} delay={idx * 100} direction="up">
               <div className="text-center group cursor-default">
