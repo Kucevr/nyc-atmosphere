@@ -1,10 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --nyc-taxi: #fbbf24;
-  --nyc-black: #050505;
+@theme {
+  --color-nyc-black: #050505;
+  --color-nyc-dark: #0a0a0a;
+  --color-nyc-gold: #fbbf24;
+  --color-nyc-taxi: #facc15;
+  --color-nyc-subway: #ff6319;
+  
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
 }
 
 html {
@@ -26,7 +31,7 @@ html {
   transition: background 0.3s;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--nyc-taxi);
+  background: var(--color-nyc-taxi);
 }
 
 /* Grain Animation */
