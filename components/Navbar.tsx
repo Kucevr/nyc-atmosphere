@@ -41,18 +41,25 @@ const Navbar: React.FC = () => {
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    
+    // Close menu and reset overflow immediately for responsiveness
+    setIsMobileMenuOpen(false);
+    document.body.style.overflow = 'unset';
+
     const element = document.getElementById(id);
     if (element) {
-      // Offset for fixed header
       const headerOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-      setIsMobileMenuOpen(false);
+      // Use a small timeout to ensure the menu starts closing before the scroll begins
+      // This prevents the "stuck" feeling on mobile
+      setTimeout(() => {
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }, 10);
     }
   };
 
@@ -147,7 +154,7 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="lg:hidden fixed inset-0 bg-zinc-950 z-[105] flex flex-col items-center justify-center"
           >
              {/* Background Decorative Elements */}
