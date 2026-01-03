@@ -6,6 +6,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [nycTime, setNycTime] = useState('');
   const { language, setLanguage, t } = useLanguage();
 
   const { scrollYProgress } = useScroll();
@@ -14,6 +15,22 @@ const Navbar: React.FC = () => {
     damping: 30,
     restDelta: 0.001
   });
+
+  useEffect(() => {
+    const updateTime = () => {
+      const time = new Date().toLocaleTimeString('en-US', {
+        timeZone: 'America/New_York',
+        hour12: true,
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      setNycTime(time);
+    };
+    
+    updateTime();
+    const timer = setInterval(updateTime, 60000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -126,14 +143,14 @@ const Navbar: React.FC = () => {
               {language === 'en' ? 'EN' : 'RU'}
             </button>
             <button 
-              className="relative w-10 h-10 flex items-center justify-center text-white hover:text-nyc-taxi transition-colors"
+              className="relative w-12 h-12 flex items-center justify-center text-white hover:text-nyc-taxi transition-colors group"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
               <div className="relative w-6 h-5">
-                <span className={`absolute left-0 block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'rotate-45 top-2' : 'top-0'}`}></span>
-                <span className={`absolute left-0 block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out top-2 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-                <span className={`absolute left-0 block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${isMobileMenuOpen ? '-rotate-45 top-2' : 'top-4'}`}></span>
+                <span className={`absolute left-0 block h-0.5 bg-current transform transition-all duration-500 ease-in-out ${isMobileMenuOpen ? 'w-6 rotate-45 top-2' : 'w-6 top-0'}`}></span>
+                <span className={`absolute left-0 block h-0.5 bg-current transform transition-all duration-500 ease-in-out top-2 ${isMobileMenuOpen ? 'w-0 opacity-0' : 'w-4 opacity-100'}`}></span>
+                <span className={`absolute left-0 block h-0.5 bg-current transform transition-all duration-500 ease-in-out ${isMobileMenuOpen ? 'w-6 -rotate-45 top-2' : 'w-5 top-4'}`}></span>
               </div>
             </button>
         </div>
@@ -154,37 +171,58 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:hidden fixed inset-0 bg-zinc-950 z-[105] flex flex-col items-center justify-center"
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:hidden fixed inset-0 bg-zinc-950 z-[105] flex flex-col"
           >
              {/* Background Decorative Elements */}
-             <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-nyc-taxi/5 rounded-full blur-[120px]"></div>
-             <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-white/5 rounded-full blur-[120px]"></div>
+             <div className="absolute top-[-10%] right-[-10%] w-[70%] h-[70%] bg-nyc-taxi/5 rounded-full blur-[120px]"></div>
+             <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[70%] bg-white/5 rounded-full blur-[120px]"></div>
+             <div className="grain-overlay opacity-20"></div>
 
-             <div className="flex flex-col items-center space-y-6 md:space-y-8 relative z-10">
-               {navLinks.map((link, idx) => (
-                 <motion.a 
-                   key={link.name} 
-                   href={`#${link.id}`} 
-                   onClick={(e) => handleScrollTo(e, link.id)}
-                   initial={{ opacity: 0, x: 20 }}
-                   animate={{ opacity: 1, x: 0 }}
-                   transition={{ delay: 0.2 + idx * 0.05 }}
-                   className="text-white text-4xl md:text-6xl font-serif font-bold italic hover:text-nyc-taxi transition-colors transform hover:scale-105 duration-300"
-                 >
-                   {link.name}
-                 </motion.a>
-               ))}
+             <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-6">
+               <motion.div 
+                 initial={{ opacity: 0, y: -20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ delay: 0.2 }}
+                 className="absolute top-24 left-1/2 -translate-x-1/2 flex flex-col items-center"
+               >
+                 <span className="text-nyc-taxi font-mono text-[10px] tracking-[0.5em] uppercase mb-2">Local Time</span>
+                 <span className="text-white font-serif italic text-2xl">{nycTime}</span>
+               </motion.div>
+
+               <div className="flex flex-col items-center space-y-4 md:space-y-6">
+                 {navLinks.map((link, idx) => (
+                   <motion.a 
+                     key={link.name} 
+                     href={`#${link.id}`} 
+                     onClick={(e) => handleScrollTo(e, link.id)}
+                     initial={{ opacity: 0, y: 30, rotateX: -45 }}
+                     animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                     transition={{ 
+                       delay: 0.3 + idx * 0.07,
+                       duration: 0.6,
+                       ease: [0.22, 1, 0.36, 1]
+                     }}
+                     className="text-white text-4xl md:text-7xl font-serif font-bold italic hover:text-nyc-taxi transition-all transform hover:scale-105 duration-300 flex items-center gap-4 group"
+                   >
+                     <span className="text-nyc-taxi/20 font-mono text-sm not-italic group-hover:text-nyc-taxi transition-colors">0{idx + 1}</span>
+                     {link.name}
+                   </motion.a>
+                 ))}
+               </div>
              </div>
              
              <motion.div 
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               transition={{ delay: 0.6 }}
-               className="absolute bottom-12 flex flex-col items-center gap-4 z-10"
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ delay: 0.8 }}
+               className="p-12 flex flex-col items-center gap-4 z-10"
              >
                 <div className="w-12 h-px bg-nyc-taxi/50"></div>
-                <span className="text-zinc-500 text-[10px] uppercase tracking-[0.4em] font-bold">New York City</span>
+                <div className="flex items-center gap-6">
+                  <span className="text-zinc-500 text-[10px] uppercase tracking-[0.4em] font-bold">New York City</span>
+                  <span className="text-zinc-700 text-[10px] uppercase tracking-[0.4em] font-bold">2026</span>
+                </div>
              </motion.div>
           </motion.div>
         )}
