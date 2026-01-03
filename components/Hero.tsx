@@ -80,40 +80,54 @@ const Hero: React.FC = () => {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-center pt-20">
         <motion.div style={{ y: y1, opacity }} className="max-w-5xl">
-            <Reveal direction="down" delay={200}>
-                <div className="flex items-center gap-3 mb-6 md:mb-8">
-                    <div className="h-px w-8 md:w-12 bg-nyc-taxi"></div>
-                    <span className="text-nyc-taxi text-[10px] md:text-xs font-bold tracking-[0.5em] uppercase shadow-black drop-shadow-md">{t.common.est} 1624</span>
-                </div>
-            </Reveal>
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="flex items-center gap-3 mb-6 md:mb-8"
+            >
+                <div className="h-px w-8 md:w-12 bg-nyc-taxi"></div>
+                <span className="text-nyc-taxi text-[10px] md:text-xs font-bold tracking-[0.5em] uppercase shadow-black drop-shadow-md">{t.common.est} 1624</span>
+            </motion.div>
             
-            <Reveal delay={400}>
             <div className="relative mb-4 md:mb-6">
                 <motion.h1 
                   style={{ fontWeight: titleWeight }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                   className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-serif font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 tracking-tighter leading-[0.8] drop-shadow-2xl"
                 >
                     {t.hero.title}
                 </motion.h1>
                 <motion.h2 
                   style={{ x: useTransform(scrollY, [0, 500], [0, 50]) }}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display italic text-white/90 leading-tight mix-blend-overlay absolute top-full left-1 md:left-2 -mt-2 sm:-mt-4 md:-mt-8 lg:-mt-12 pointer-events-none"
                 >
                     {t.hero.subtitle}
                 </motion.h2>
             </div>
-            </Reveal>
 
             <div className="h-12 md:h-24"></div> {/* Spacer for subtitle overlapping */}
 
-            <Reveal delay={600}>
-            <p className="text-sm md:text-xl text-gray-300 mb-8 md:mb-12 max-w-xl font-light leading-relaxed border-l border-white/30 pl-6 md:pl-8 backdrop-blur-sm">
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+              className="text-sm md:text-xl text-gray-300 mb-8 md:mb-12 max-w-xl font-light leading-relaxed border-l border-white/30 pl-6 md:pl-8 backdrop-blur-sm"
+            >
                 {t.hero.description}
-            </p>
-            </Reveal>
+            </motion.p>
             
-            <Reveal delay={800}>
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+              className="flex flex-col sm:flex-row gap-4 md:gap-6"
+            >
                 <a 
                     href="#attractions" 
                     onClick={(e) => handleScrollTo(e, 'attractions')}
@@ -128,8 +142,7 @@ const Hero: React.FC = () => {
                     </div>
                     <span className="tracking-widest text-[10px] md:text-xs font-bold uppercase">{t.common.watchVideo}</span>
                 </button>
-            </div>
-            </Reveal>
+            </motion.div>
         </motion.div>
       </div>
 

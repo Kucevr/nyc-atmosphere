@@ -31,7 +31,7 @@ export const Reveal: React.FC<RevealProps> = React.memo(({
       x: 0,
       scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.5,
         delay: delay / 1000,
         ease: [0.22, 1, 0.36, 1], // Premium cubic-bezier
       },

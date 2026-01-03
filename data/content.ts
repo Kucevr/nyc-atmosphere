@@ -300,7 +300,12 @@ export const content = {
         legal: 'Инфо'
       },
       time: 'Время в NYC',
-      backToTop: 'Наверх'
+      backToTop: 'Наверх',
+      terms: 'Условия использования',
+      sitemap: 'Карта сайта',
+      weather: 'Погода',
+      weatherCondition: 'Ясно',
+      crowd: 'Людей на Таймс-сквер',
     }
   },
   en: {
@@ -600,7 +605,12 @@ export const content = {
         legal: 'Legal'
       },
       time: 'NYC Time',
-      backToTop: 'Back to Top'
+      backToTop: 'Back to Top',
+      terms: 'Terms of Use',
+      sitemap: 'Sitemap',
+      weather: 'Weather',
+      weatherCondition: 'Clear',
+      crowd: 'Times Sq Crowd',
     }
   }
 };

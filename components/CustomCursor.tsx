@@ -83,7 +83,7 @@ export const CustomCursor: React.FC = () => {
       {/* Outer Glow (Flashlight effect) */}
       <div 
         ref={glowRef}
-        className={`fixed pointer-events-none z-[20000] rounded-full transition-all duration-200 ease-out
+        className={`fixed pointer-events-none z-[9999998] rounded-full transition-all duration-200 ease-out
           ${isHovering ? 'w-20 h-20 blur-xl opacity-40' : 'w-72 h-72 blur-3xl opacity-25'}
         `}
         style={{ 
@@ -96,7 +96,7 @@ export const CustomCursor: React.FC = () => {
       {/* Core Dot */}
       <div 
         ref={cursorRef}
-        className={`fixed pointer-events-none z-[20001] rounded-full bg-gradient-to-br from-nyc-taxi via-yellow-400 to-amber-500 transition-[width,height,opacity] duration-75 ease-linear
+        className={`fixed pointer-events-none z-[9999999] rounded-full bg-gradient-to-br from-nyc-taxi via-yellow-400 to-amber-500 transition-[width,height,opacity] duration-75 ease-linear
           ${isHovering ? 'w-5 h-5 opacity-60' : 'w-2.5 h-2.5 opacity-100'}
         `}
         style={{ 

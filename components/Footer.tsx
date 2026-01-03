@@ -6,6 +6,8 @@ import { Reveal } from './Reveal';
 const Footer: React.FC = () => {
   const { t } = useLanguage();
   const [time, setTime] = useState('');
+  const [weather, setWeather] = useState({ temp: '...', condition: '...' });
+  const [crowd, setCrowd] = useState(0);
 
   useEffect(() => {
     const updateTime = () => {
@@ -19,6 +21,11 @@ const Footer: React.FC = () => {
     };
     updateTime();
     const interval = setInterval(updateTime, 1000);
+
+    // Mock weather and crowd data
+    setWeather({ temp: '42°F', condition: 'Clear' });
+    setCrowd(Math.floor(Math.random() * (450000 - 300000) + 300000));
+
     return () => clearInterval(interval);
   }, []);
 
@@ -42,7 +49,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-black text-white relative overflow-hidden pt-16 md:pt-24 pb-8 border-t border-zinc-900">
+    <footer className="bg-black text-white relative overflow-hidden pt-16 md:pt-24 pb-8 border-t border-white/5">
       {/* Background Ambience */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-zinc-900/40 via-black to-black pointer-events-none"></div>
       
@@ -107,8 +114,8 @@ const Footer: React.FC = () => {
                    <h4 className="text-nyc-taxi text-xs font-bold uppercase tracking-[0.2em] mb-6">{t.footer.links.legal}</h4>
                    <ul className="space-y-4 text-sm text-gray-400 font-light">
                       <li><a href="#" className="hover:text-white transition-colors">{t.footer.privacy}</a></li>
-                      <li><a href="#" className="hover:text-white transition-colors">Terms of Use</a></li>
-                      <li><a href="#" className="hover:text-white transition-colors">Sitemap</a></li>
+                      <li><a href="#" className="hover:text-white transition-colors">{t.footer.terms}</a></li>
+                      <li><a href="#" className="hover:text-white transition-colors">{t.footer.sitemap}</a></li>
                    </ul>
                 </div>
              </Reveal>
@@ -133,7 +140,17 @@ const Footer: React.FC = () => {
              </a>
           </div>
           
-          <div className="flex items-center gap-6 md:gap-8">
+          <div className="flex items-center gap-6 md:gap-12">
+            <div className="hidden sm:block text-right">
+              <div className="text-[9px] md:text-[10px] text-zinc-500 uppercase tracking-widest">{t.footer.weather}</div>
+              <div className="font-mono text-xs md:text-sm text-white">{weather.temp} {t.footer.weatherCondition}</div>
+            </div>
+
+            <div className="hidden md:block text-right">
+              <div className="text-[9px] md:text-[10px] text-zinc-500 uppercase tracking-widest">{t.footer.crowd}</div>
+              <div className="font-mono text-xs md:text-sm text-white">~{crowd.toLocaleString()}</div>
+            </div>
+
             <div className="text-center md:text-right">
               <div className="text-[9px] md:text-[10px] text-zinc-500 uppercase tracking-widest">{t.footer.time}</div>
               <div className="font-mono text-sm md:text-base text-nyc-taxi">{time}</div>

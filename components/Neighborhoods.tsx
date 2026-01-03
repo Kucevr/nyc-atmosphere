@@ -55,7 +55,7 @@ const Neighborhoods: React.FC = () => {
   }, [selectedNeighborhood]);
 
   return (
-    <section id="neighborhoods" className="py-20 md:py-32 bg-zinc-900 overflow-hidden relative border-t border-zinc-800 optimize-visibility" style={{ containIntrinsicSize: '1px 800px' }}>
+    <section id="neighborhoods" className="py-20 md:py-32 bg-zinc-950 overflow-hidden relative border-t border-white/5 optimize-visibility" style={{ containIntrinsicSize: '1px 800px' }}>
       <div className="max-w-7xl mx-auto px-6">
         <Reveal>
           <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-16">
@@ -94,25 +94,21 @@ const Neighborhoods: React.FC = () => {
         {t.neighborhoods.items.map((area, idx) => (
           <div 
             key={idx} 
-            className="flex-shrink-0 w-[280px] md:w-96 snap-center group"
+            className="flex-shrink-0 w-[280px] md:w-96 snap-center group cursor-pointer"
+            onClick={() => setSelectedNeighborhood(idx)}
           >
             <Reveal delay={idx * 50} width="100%" variant="zoom">
-              <motion.div 
-                layoutId={`neighborhood-card-${idx}`}
-                className="relative h-[400px] md:h-[500px] overflow-hidden cursor-pointer bg-black border-r border-white/10 group-hover:border-transparent transition-colors"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedNeighborhood(idx);
-                }}
+              <div 
+                className="relative h-[400px] md:h-[500px] overflow-hidden bg-black border-r border-white/10 group-hover:border-transparent transition-colors"
               >
-                <motion.div layoutId={`neighborhood-image-${idx}`} className="w-full h-full absolute inset-0">
+                <div className="w-full h-full absolute inset-0">
                   <SmoothImage 
                     src={images[idx % images.length]} 
                     alt={area.name} 
                     className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105 opacity-60 group-hover:opacity-80 grayscale group-hover:grayscale-0 will-change-transform"
                     containerClassName="w-full h-full absolute inset-0"
                   />
-                </motion.div>
+                </div>
                 
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
                 
@@ -124,92 +120,91 @@ const Neighborhoods: React.FC = () => {
                   <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-2 block border-l border-nyc-taxi pl-2 group-hover:text-nyc-taxi transition-colors">
                     {area.tagline}
                   </span>
-                  <motion.h3 layoutId={`neighborhood-title-${idx}`} className="text-4xl font-serif text-white font-bold mb-4">{area.name}</motion.h3>
+                  <h3 className="text-4xl font-serif text-white font-bold mb-4">{area.name}</h3>
                   <div className="h-px w-full bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
                 </div>
-              </motion.div>
+              </div>
             </Reveal>
           </div>
         ))}
         <div className="w-6 flex-shrink-0"></div>
       </div>
 
-      {/* Detail Modal */}
-      <AnimatePresence>
-        {selectedNeighborhood !== null && createPortal(
-          <div className="fixed inset-0 z-[12000] flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedNeighborhood(null);
-              }}
-            ></motion.div>
-            
-            <motion.div 
-              layoutId={`neighborhood-card-${selectedNeighborhood}`}
-              className="relative bg-zinc-900 border border-white/10 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col md:flex-row z-[13000]"
-            >
-              <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedNeighborhood(null);
-                  }}
-                  className="absolute top-4 right-4 z-10 p-2 bg-black/50 text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md rounded-full border border-white/10"
+      {/* Detail Modal - Fixed Portal & Animation Logic */}
+      {createPortal(
+        <AnimatePresence>
+          {selectedNeighborhood !== null && (
+            <div className="fixed inset-0 z-[999999] flex items-center justify-center p-4 md:p-8 pointer-events-auto">
+              {/* Backdrop */}
+              <motion.div 
+                key="neighborhood-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/90 backdrop-blur-xl cursor-pointer"
+                onClick={() => setSelectedNeighborhood(null)}
+              />
+              
+              {/* Modal Content */}
+              <motion.div 
+                key="neighborhood-modal-content"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="relative bg-zinc-900 border border-white/10 max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] rounded-3xl flex flex-col md:flex-row z-[1000000] pointer-events-auto"
               >
-                  <X size={20} />
-              </button>
+                <button 
+                    onClick={() => setSelectedNeighborhood(null)}
+                    className="absolute top-6 right-6 z-50 p-3 bg-black/50 text-white hover:bg-white hover:text-black transition-all backdrop-blur-md rounded-full border border-white/10"
+                >
+                    <X size={24} />
+                </button>
 
-              {/* Image Side */}
-              <motion.div layoutId={`neighborhood-image-${selectedNeighborhood}`} className="w-full md:w-1/2 h-64 md:h-auto relative">
-                  <SmoothImage 
-                      src={images[selectedNeighborhood % images.length]} 
-                      alt={t.neighborhoods.items[selectedNeighborhood].name} 
-                      className="w-full h-full object-cover"
-                      containerClassName="w-full h-full absolute inset-0"
-                  />
-                  <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                {/* Image Side */}
+                <div className="w-full md:w-1/2 h-72 md:h-auto relative overflow-hidden">
+                    <SmoothImage 
+                        src={images[selectedNeighborhood % images.length]} 
+                        alt={t.neighborhoods.items[selectedNeighborhood].name} 
+                        className="w-full h-full object-cover"
+                        containerClassName="w-full h-full absolute inset-0"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+                </div>
+
+                {/* Content Side */}
+                <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-zinc-900 overflow-y-auto">
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <span className="text-nyc-taxi text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+                          {t.neighborhoods.items[selectedNeighborhood].tagline}
+                      </span>
+                      <h3 className="text-4xl md:text-6xl font-serif text-white font-bold mb-8 leading-none">
+                          {t.neighborhoods.items[selectedNeighborhood].name}
+                      </h3>
+                      <div className="w-12 h-1 bg-nyc-taxi mb-8"></div>
+                      <p className="text-gray-300 text-lg md:text-xl font-light leading-relaxed mb-10">
+                          {t.neighborhoods.items[selectedNeighborhood].details || t.neighborhoods.items[selectedNeighborhood].desc}
+                      </p>
+                      
+                      <button 
+                          onClick={() => setSelectedNeighborhood(null)}
+                          className="group flex items-center gap-3 text-white font-bold text-xs uppercase tracking-widest hover:text-nyc-taxi transition-colors"
+                      >
+                          <span className="w-8 h-px bg-white group-hover:bg-nyc-taxi transition-all"></span>
+                          {t.common.close}
+                      </button>
+                    </motion.div>
+                </div>
               </motion.div>
-
-              {/* Content Side */}
-              <div className="w-full md:w-1/2 p-8 md:p-14 flex flex-col justify-center bg-zinc-950">
-                  <motion.span 
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-nyc-taxi text-[10px] md:text-xs font-bold uppercase tracking-widest mb-3 md:mb-4"
-                  >
-                      {t.neighborhoods.items[selectedNeighborhood].tagline}
-                  </motion.span>
-                  <motion.h3 layoutId={`neighborhood-title-${selectedNeighborhood}`} className="text-3xl md:text-5xl font-serif text-white font-bold mb-6 md:mb-8">
-                      {t.neighborhoods.items[selectedNeighborhood].name}
-                  </motion.h3>
-                  <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-gray-300 text-base md:text-lg font-light leading-relaxed mb-6 md:mb-8"
-                  >
-                      {t.neighborhoods.items[selectedNeighborhood].details || t.neighborhoods.items[selectedNeighborhood].desc}
-                  </motion.p>
-                  
-                  <motion.button 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.4 }}
-                      onClick={() => setSelectedNeighborhood(null)}
-                      className="self-start text-white border-b border-white pb-1 hover:text-nyc-taxi hover:border-nyc-taxi transition-colors text-xs uppercase tracking-widest"
-                  >
-                      {t.common.close}
-                  </motion.button>
-              </div>
-            </motion.div>
-          </div>, document.body
-        )}
-      </AnimatePresence>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 };
