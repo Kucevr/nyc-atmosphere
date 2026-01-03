@@ -21,6 +21,33 @@ const Neighborhoods: React.FC = () => {
   const { t } = useLanguage();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Intersection Observer for mobile "active" state
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute('data-index'));
+            setActiveIndex(index);
+          }
+        });
+      },
+      {
+        root: scrollContainerRef.current,
+        threshold: 0.7,
+        rootMargin: '0px -10% 0px -10%'
+      }
+    );
+
+    itemRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -94,34 +121,36 @@ const Neighborhoods: React.FC = () => {
         {t.neighborhoods.items.map((area, idx) => (
           <div 
             key={idx} 
-            className="flex-shrink-0 w-[280px] md:w-96 snap-center group cursor-pointer"
+            ref={el => itemRefs.current[idx] = el}
+            data-index={idx}
+            className={`flex-shrink-0 w-[280px] md:w-96 snap-center group cursor-pointer ${activeIndex === idx ? 'is-active' : ''}`}
             onClick={() => setSelectedNeighborhood(idx)}
           >
             <Reveal delay={idx * 50} width="100%" variant="zoom">
               <div 
-                className="relative h-[400px] md:h-[500px] overflow-hidden bg-black border-r border-white/10 group-hover:border-transparent transition-colors"
+                className="relative h-[400px] md:h-[500px] overflow-hidden bg-black border-r border-white/10 group-hover:border-transparent group-[.is-active]:border-transparent transition-colors"
               >
                 <div className="w-full h-full absolute inset-0">
                   <SmoothImage 
                     src={images[idx % images.length]} 
                     alt={area.name} 
-                    className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105 opacity-60 group-hover:opacity-80 grayscale group-hover:grayscale-0 will-change-transform"
+                    className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105 group-[.is-active]:scale-105 opacity-60 group-hover:opacity-80 group-[.is-active]:opacity-80 grayscale group-hover:grayscale-0 group-[.is-active]:grayscale-0 will-change-transform"
                     containerClassName="w-full h-full absolute inset-0"
                   />
                 </div>
                 
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
                 
-                <div className="absolute top-4 right-4 p-2 bg-white/10 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-full border border-white/20">
+                <div className="absolute top-4 right-4 p-2 bg-white/10 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 group-[.is-active]:opacity-100 transition-all duration-300 rounded-full border border-white/20">
                     <Maximize2 size={16} />
                 </div>
 
                 <div className="absolute bottom-0 left-0 p-8 w-full">
-                  <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-2 block border-l border-nyc-taxi pl-2 group-hover:text-nyc-taxi transition-colors">
+                  <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-2 block border-l border-nyc-taxi pl-2 group-hover:text-nyc-taxi group-[.is-active]:text-nyc-taxi transition-colors">
                     {area.tagline}
                   </span>
                   <h3 className="text-4xl font-serif text-white font-bold mb-4">{area.name}</h3>
-                  <div className="h-px w-full bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
+                  <div className="h-px w-full bg-white/20 scale-x-0 group-hover:scale-x-100 group-[.is-active]:scale-x-100 transition-transform origin-left duration-500"></div>
                 </div>
               </div>
             </Reveal>
