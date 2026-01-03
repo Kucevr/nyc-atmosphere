@@ -22,8 +22,7 @@
     <meta property="twitter:image" content="https://nyc-atmosphere.vercel.app/items/TimesSquare.webp" />
 
     <!-- Preload Critical Assets -->
-    <link rel="preload" as="image" href="/items/TimesSquare.webp" />
-    <link rel="preload" as="video" href="/items/Herovideo.webm" />
+    <link rel="preload" as="image" href="/items/TimesSquare.webp" fetchpriority="high" />
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
@@ -32,7 +31,7 @@
         "@type": "TravelAgency",
         "name": "NYC Atmosphere",
         "description": "Интерактивный путеводитель по Нью-Йорку",
-        "image": "https://nyc-atmosphere.vercel.app/items/TimesSquare.JPG",
+        "image": "https://nyc-atmosphere.vercel.app/items/TimesSquare.webp",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "New York",

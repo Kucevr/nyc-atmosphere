@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
           muted
           loop 
           playsInline
-          preload="auto"
+          preload="metadata"
           poster="/items/TimesSquare.webp"
         >
            <source src="/items/Herovideo.webm" type="video/webm" />

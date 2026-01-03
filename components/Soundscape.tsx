@@ -72,10 +72,10 @@ const Soundscape: React.FC = () => {
   return (
     <>
       {/* Audio Elements */}
-      <audio ref={ambientAudio} src="/audio/ambient_city.mp3" loop />
-      <audio ref={transportAudio} src="/audio/subway_ambience.mp3" loop />
-      <audio ref={culinaryAudio} src="/audio/cafe_ambience.mp3" loop />
-      <audio ref={historyAudio} src="/audio/jazz_ambience.mp3" loop />
+      <audio ref={ambientAudio} src="/audio/ambient_city.mp3" loop preload="none" />
+      <audio ref={transportAudio} src="/audio/subway_ambience.mp3" loop preload="none" />
+      <audio ref={culinaryAudio} src="/audio/cafe_ambience.mp3" loop preload="none" />
+      <audio ref={historyAudio} src="/audio/jazz_ambience.mp3" loop preload="none" />
 
       {/* Equalizer / Mute Button */}
       <div className="fixed bottom-8 left-8 z-[10000] flex items-center gap-4">
