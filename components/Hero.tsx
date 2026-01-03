@@ -79,13 +79,13 @@ const Hero: React.FC = () => {
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[150px]"></div>
       </motion.div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-center pt-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-center pt-32 md:pt-40">
         <motion.div style={{ y: y1, opacity }} className="max-w-5xl">
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="flex items-center gap-3 mb-6 md:mb-8"
+              className="flex items-center gap-3 mb-6 md:mb-10"
             >
                 <div className="h-px w-8 md:w-12 bg-nyc-taxi"></div>
                 <span className="text-nyc-taxi text-[10px] md:text-xs font-bold tracking-[0.5em] uppercase shadow-black drop-shadow-md">{t.common.est} 1624</span>

@@ -69,14 +69,15 @@ const Navbar: React.FC = () => {
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-      // Use a small timeout to ensure the menu starts closing before the scroll begins
-      // This prevents the "stuck" feeling on mobile
+      // Use a longer timeout to let the menu exit animation finish
+      // and the browser to breathe before starting a heavy smooth scroll
       setTimeout(() => {
+        const isMobile = window.innerWidth < 1024;
         window.scrollTo({
           top: offsetPosition,
-          behavior: "smooth"
+          behavior: isMobile ? "auto" : "smooth"
         });
-      }, 10);
+      }, 350);
     }
   };
 
@@ -165,32 +166,45 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu */}
+      <AnimatePresence mode="wait">
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-md z-[101]"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="lg:hidden fixed inset-0 bg-zinc-950 z-[105] flex flex-col"
           >
              {/* Background Decorative Elements */}
-             <div className="absolute top-[-10%] right-[-10%] w-[70%] h-[70%] bg-nyc-taxi/5 rounded-full blur-[120px]"></div>
+             <div className="absolute top-[-10%] right-[-10%] w-[70%] h-[70%] bg-nyc-taxi/10 rounded-full blur-[120px]"></div>
              <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[70%] bg-white/5 rounded-full blur-[120px]"></div>
-             <div className="grain-overlay opacity-20"></div>
+             <div className="grain-overlay opacity-30"></div>
 
-             <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-6">
+             <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-6 pt-32">
                <motion.div 
                  initial={{ opacity: 0, y: -20 }}
                  animate={{ opacity: 1, y: 0 }}
                  transition={{ delay: 0.2 }}
-                 className="absolute top-24 left-1/2 -translate-x-1/2 flex flex-col items-center"
+                 className="absolute top-36 left-1/2 -translate-x-1/2 flex flex-col items-center"
                >
                  <span className="text-nyc-taxi font-mono text-[10px] tracking-[0.5em] uppercase mb-2">Local Time</span>
                  <span className="text-white font-serif italic text-2xl">{nycTime}</span>
                </motion.div>
 
-               <div className="flex flex-col items-center space-y-4 md:space-y-6">
+               <div className="flex flex-col items-center space-y-5 md:space-y-8 mt-24">
                  {navLinks.map((link, idx) => (
                    <motion.a 
                      key={link.name} 
