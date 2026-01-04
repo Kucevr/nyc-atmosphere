@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 
 interface ParallaxLayerProps {
   children: React.ReactNode;
@@ -32,12 +32,12 @@ export const ParallaxLayer: React.FC<ParallaxLayerProps> = ({
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, opacityRange[0], opacityRange[1], 0]);
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       style={{ x, y, opacity }}
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };

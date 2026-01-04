@@ -34,6 +34,7 @@ const Culture: React.FC = () => {
                     <SmoothImage 
                         src="/items/CulturalCode1.webp" 
                         alt="Broadway" 
+                        priority={true}
                         className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] filter brightness-[0.85] group-hover:brightness-100"
                         containerClassName="w-full h-full absolute inset-0"
                     />

@@ -3,6 +3,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 interface SmoothImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   containerClassName?: string;
   priority?: boolean;
+  sizes?: string;
 }
 
 export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
@@ -11,6 +12,7 @@ export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
   alt,
   src,
   priority = false,
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
   ...props 
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -50,6 +52,7 @@ export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
           {...props}
           src={src}
           alt={alt}
+          sizes={sizes}
           loading={priority ? "eager" : "lazy"}
           decoding={priority ? "sync" : "async"}
           {...(priority ? { fetchPriority: "high" } : {})}

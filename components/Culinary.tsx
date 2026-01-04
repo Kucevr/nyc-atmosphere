@@ -36,6 +36,7 @@ const Culinary: React.FC = () => {
                             <SmoothImage 
                                 src="/items/CityTastes.webp" 
                                 alt="NYC Dining" 
+                                priority={true}
                                 className="w-full h-full object-cover filter brightness-[0.9] group-hover:brightness-100 transition-[filter] duration-200 ease-out" 
                                 containerClassName="w-full h-full absolute inset-0"
                             />

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { ChevronDown, Play, ArrowRight, Volume2, VolumeX } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { Reveal } from './Reveal';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -24,10 +24,10 @@ const Hero: React.FC = () => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-        const headerOffset = 80;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     }
   };
 
@@ -48,7 +48,7 @@ const Hero: React.FC = () => {
   return (
     <section id="hero" className="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center bg-black">
       {/* VIDEO BACKGROUND */}
-      <motion.div 
+      <m.div 
         style={{ scale }}
         className="absolute inset-0 z-0 select-none"
       >
@@ -68,20 +68,20 @@ const Hero: React.FC = () => {
         {/* Cinematic Gradient Overlays */}
         <div className="absolute inset-0 bg-black/25 mix-blend-multiply"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/40 opacity-80"></div>
-      </motion.div>
+      </m.div>
 
       {/* Decorative Parallax Elements (Dust/Light) */}
-      <motion.div 
+      <m.div 
         style={{ y: y2, opacity }}
         className="absolute inset-0 z-[5] pointer-events-none overflow-hidden"
       >
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-nyc-taxi/5 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[150px]"></div>
-      </motion.div>
+      </m.div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-center pt-32 md:pt-40">
-        <motion.div style={{ y: y1, opacity }} className="max-w-5xl">
-            <motion.div 
+        <m.div style={{ y: y1, opacity }} className="max-w-5xl">
+            <m.div 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
@@ -89,10 +89,10 @@ const Hero: React.FC = () => {
             >
                 <div className="h-px w-8 md:w-12 bg-nyc-taxi"></div>
                 <span className="text-nyc-taxi text-[10px] md:text-xs font-bold tracking-[0.5em] uppercase shadow-black drop-shadow-md">{t.common.est} 1624</span>
-            </motion.div>
+            </m.div>
             
             <div className="relative mb-4 md:mb-6">
-                <motion.h1 
+                <m.h1 
                   style={{ fontWeight: titleWeight }}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -100,8 +100,8 @@ const Hero: React.FC = () => {
                   className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-serif font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 tracking-tighter leading-[0.8] drop-shadow-2xl"
                 >
                     {t.hero.title}
-                </motion.h1>
-                <motion.h2 
+                </m.h1>
+                <m.h2 
                   style={{ x: useTransform(scrollY, [0, 500], [0, 50]) }}
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -109,21 +109,21 @@ const Hero: React.FC = () => {
                   className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display italic text-white/90 leading-tight mix-blend-overlay absolute top-full left-1 md:left-2 -mt-2 sm:-mt-4 md:-mt-8 lg:-mt-12 pointer-events-none"
                 >
                     {t.hero.subtitle}
-                </motion.h2>
+                </m.h2>
             </div>
 
             <div className="h-12 md:h-24"></div> {/* Spacer for subtitle overlapping */}
 
-            <motion.p 
+            <m.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
               className="text-sm md:text-xl text-gray-300 mb-8 md:mb-12 max-w-xl font-light leading-relaxed border-l border-white/30 pl-6 md:pl-8 backdrop-blur-sm"
             >
                 {t.hero.description}
-            </motion.p>
+            </m.p>
             
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
@@ -143,8 +143,8 @@ const Hero: React.FC = () => {
                     </div>
                     <span className="tracking-widest text-[10px] md:text-xs font-bold uppercase">{t.common.watchVideo}</span>
                 </button>
-            </motion.div>
-        </motion.div>
+            </m.div>
+        </m.div>
       </div>
 
       {/* Sound Control Button */}

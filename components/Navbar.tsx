@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { m, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Navbar: React.FC = () => {
@@ -65,17 +65,13 @@ const Navbar: React.FC = () => {
 
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
       // Use a longer timeout to let the menu exit animation finish
       // and the browser to breathe before starting a heavy smooth scroll
       setTimeout(() => {
         const isMobile = window.innerWidth < 1024;
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: isMobile ? "auto" : "smooth"
+        element.scrollIntoView({
+          behavior: isMobile ? "auto" : "smooth",
+          block: "start"
         });
       }, 350);
     }
@@ -159,7 +155,7 @@ const Navbar: React.FC = () => {
 
       {/* Progress Bar */}
       <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white/5 z-[110]">
-        <motion.div 
+        <m.div 
           className="h-full bg-gradient-to-r from-nyc-taxi via-yellow-200 to-nyc-taxi shadow-[0_0_15px_rgba(251,191,36,0.6)] origin-left"
           style={{ scaleX }}
         />
@@ -168,7 +164,7 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       <AnimatePresence mode="wait">
         {isMobileMenuOpen && (
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -181,7 +177,7 @@ const Navbar: React.FC = () => {
 
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
@@ -194,7 +190,7 @@ const Navbar: React.FC = () => {
              <div className="grain-overlay opacity-30"></div>
 
              <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-6 pt-32">
-               <motion.div 
+               <m.div 
                  initial={{ opacity: 0, y: -20 }}
                  animate={{ opacity: 1, y: 0 }}
                  transition={{ delay: 0.2 }}
@@ -202,11 +198,11 @@ const Navbar: React.FC = () => {
                >
                  <span className="text-nyc-taxi font-mono text-[10px] tracking-[0.5em] uppercase mb-2">Local Time</span>
                  <span className="text-white font-serif italic text-2xl">{nycTime}</span>
-               </motion.div>
+               </m.div>
 
                <div className="flex flex-col items-center space-y-5 md:space-y-8 mt-24">
                  {navLinks.map((link, idx) => (
-                   <motion.a 
+                   <m.a 
                      key={link.name} 
                      href={`#${link.id}`} 
                      onClick={(e) => handleScrollTo(e, link.id)}
@@ -221,12 +217,12 @@ const Navbar: React.FC = () => {
                    >
                      <span className="text-nyc-taxi/20 font-mono text-sm not-italic group-hover:text-nyc-taxi transition-colors">0{idx + 1}</span>
                      {link.name}
-                   </motion.a>
+                   </m.a>
                  ))}
                </div>
              </div>
              
-             <motion.div 
+             <m.div 
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.8 }}
@@ -237,8 +233,8 @@ const Navbar: React.FC = () => {
                   <span className="text-zinc-500 text-[10px] uppercase tracking-[0.4em] font-bold">New York City</span>
                   <span className="text-zinc-700 text-[10px] uppercase tracking-[0.4em] font-bold">2026</span>
                 </div>
-             </motion.div>
-          </motion.div>
+             </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </nav>

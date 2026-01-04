@@ -81,6 +81,7 @@ const Transport: React.FC = () => {
                                     <SmoothImage 
                                         src={item.image} 
                                         alt={item.title} 
+                                        priority={idx === 0}
                                         className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-102 group-[.is-active]:scale-102 filter grayscale brightness-[0.5] group-hover:grayscale-0 group-[.is-active]:grayscale-0 group-hover:brightness-85 group-[.is-active]:brightness-85"
                                         containerClassName="w-full h-full absolute inset-0"
                                     />

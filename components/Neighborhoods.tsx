@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Reveal } from './Reveal';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ChevronLeft, ChevronRight, X, Maximize2, Map } from 'lucide-react';
@@ -134,6 +134,7 @@ const Neighborhoods: React.FC = () => {
                   <SmoothImage 
                     src={images[idx % images.length]} 
                     alt={area.name} 
+                    priority={idx < 2}
                     className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105 group-[.is-active]:scale-105 opacity-60 group-hover:opacity-80 group-[.is-active]:opacity-80 grayscale group-hover:grayscale-0 group-[.is-active]:grayscale-0 will-change-transform"
                     containerClassName="w-full h-full absolute inset-0"
                   />
@@ -165,7 +166,7 @@ const Neighborhoods: React.FC = () => {
           {selectedNeighborhood !== null && (
             <div className="fixed inset-0 z-[999999] flex items-center justify-center p-4 md:p-8 pointer-events-auto">
               {/* Backdrop */}
-              <motion.div 
+              <m.div 
                 key="neighborhood-backdrop"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -175,7 +176,7 @@ const Neighborhoods: React.FC = () => {
               />
               
               {/* Modal Content */}
-              <motion.div 
+              <m.div 
                 key="neighborhood-modal-content"
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -203,7 +204,7 @@ const Neighborhoods: React.FC = () => {
 
                 {/* Content Side */}
                 <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-zinc-900 overflow-y-auto">
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2 }}
@@ -226,9 +227,9 @@ const Neighborhoods: React.FC = () => {
                           <span className="w-8 h-px bg-white group-hover:bg-nyc-taxi transition-all"></span>
                           {t.common.close}
                       </button>
-                    </motion.div>
+                    </m.div>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           )}
         </AnimatePresence>,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface RevealProps {
   children: React.ReactNode;
@@ -40,7 +40,7 @@ export const Reveal: React.FC<RevealProps> = React.memo(({
 
   return (
     <div style={{ width, position: 'relative' }} className={className}>
-      <motion.div
+      <m.div
         variants={variants}
         initial="hidden"
         whileInView="visible"
@@ -49,7 +49,7 @@ export const Reveal: React.FC<RevealProps> = React.memo(({
         style={{ height: className.includes('h-full') ? '100%' : 'auto' }}
       >
         {children}
-      </motion.div>
+      </m.div>
     </div>
   );
 });

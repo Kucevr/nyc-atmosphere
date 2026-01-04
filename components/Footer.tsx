@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Heart, ArrowUp, Instagram, Twitter, Facebook, Mail, X, Shield, FileText, Map as MapIcon } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Reveal } from './Reveal';
@@ -40,13 +40,9 @@ const Footer: React.FC = () => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
       });
     }
   };
@@ -203,14 +199,14 @@ const Footer: React.FC = () => {
         <AnimatePresence>
           {activeLegal && (
             <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-6">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setActiveLegal(null)}
                 className="absolute inset-0 bg-black/90 backdrop-blur-sm"
               />
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -248,7 +244,7 @@ const Footer: React.FC = () => {
                     {t.footer.close}
                   </button>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           )}
         </AnimatePresence>,

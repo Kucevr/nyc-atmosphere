@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { Volume2, VolumeX } from 'lucide-react';
 
 const Soundscape: React.FC = () => {
@@ -88,7 +88,7 @@ const Soundscape: React.FC = () => {
           ) : (
             <div className="flex items-end gap-[2px] h-4">
               {[0.6, 0.8, 0.4, 1, 0.5].map((h, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   animate={{ height: ["20%", "100%", "20%"] }}
                   transition={{ 

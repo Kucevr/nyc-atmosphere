@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { m, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export const MetroLine: React.FC = () => {
@@ -89,7 +89,7 @@ export const MetroLine: React.FC = () => {
   return (
     <div className="fixed top-0 left-8 w-16 h-full z-[9999] pointer-events-none hidden xl:flex flex-col items-center py-20">
       {/* Line Header - Subway Style */}
-      <motion.div 
+      <m.div 
         initial={{ scale: 0, rotate: -180 }}
         animate={{ scale: 1, rotate: 0 }}
         whileHover={{ scale: 1.1 }}
@@ -99,7 +99,7 @@ export const MetroLine: React.FC = () => {
         <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black text-nyc-taxi text-[8px] px-2 py-1 rounded border border-nyc-taxi/30 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-bold uppercase tracking-widest">
           Atmosphere Line
         </div>
-      </motion.div>
+      </m.div>
 
       <div className="relative flex-1 w-px">
         {/* Track Background with "Sleepers" effect */}
@@ -108,7 +108,7 @@ export const MetroLine: React.FC = () => {
         </div>
         
         {/* Active Track with Glow */}
-        <motion.div 
+        <m.div 
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] bg-nyc-taxi origin-top"
           style={{ 
             scaleY, 
@@ -128,7 +128,7 @@ export const MetroLine: React.FC = () => {
               onClick={() => scrollTo(station.id)}
             >
               {/* Station Marker - Hub Style */}
-              <motion.div 
+              <m.div 
                 animate={{ 
                   scale: isActive ? 1.4 : 1,
                   backgroundColor: isActive ? "#fbbf24" : "#18181b",
@@ -138,7 +138,7 @@ export const MetroLine: React.FC = () => {
                 className={`w-4 h-4 rounded-full border-2 z-10 transition-all duration-500 flex items-center justify-center`}
               >
                 {isActive && <div className="w-1.5 h-1.5 bg-black rounded-full animate-ping" />}
-              </motion.div>
+              </m.div>
 
               {/* Label Container - Digital Display Style */}
               <div className="absolute left-8 flex flex-col opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">
@@ -159,7 +159,7 @@ export const MetroLine: React.FC = () => {
               {/* Active Indicator Glow */}
               <AnimatePresence>
                 {isActive && (
-                  <motion.div 
+                  <m.div 
                     layoutId="active-glow"
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -173,7 +173,7 @@ export const MetroLine: React.FC = () => {
         })}
 
         {/* Moving Train Car - Detailed Version */}
-        <motion.div 
+        <m.div 
           className="absolute left-1/2 -translate-x-1/2 w-2 h-12 z-20"
           style={{ 
             top: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]),
@@ -192,7 +192,7 @@ export const MetroLine: React.FC = () => {
           </div>
           
           {/* Digital "Next Stop" Display */}
-          <motion.div 
+          <m.div 
             className="absolute left-6 top-1/2 -translate-y-1/2 bg-zinc-900 border border-nyc-taxi/40 px-3 py-1.5 rounded shadow-2xl pointer-events-none"
             style={{ 
               opacity: useTransform(scrollYProgress, [0, 0.02], [0, 1]),
@@ -203,12 +203,12 @@ export const MetroLine: React.FC = () => {
             <div className="text-[10px] text-white font-bold uppercase tracking-wider whitespace-nowrap">
               {stations.find(s => s.id === activeStation)?.label || t.metro.inTransit}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
 
       {/* Service Status Footer */}
-      <motion.div 
+      <m.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mt-8 flex flex-col items-center gap-2"
@@ -220,7 +220,7 @@ export const MetroLine: React.FC = () => {
         <div className="text-[7px] text-white/20 uppercase tracking-[0.4em] vertical-text mt-4">
           NYC Atmosphere Line
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 };
