@@ -155,7 +155,7 @@ const Footer: React.FC = () => {
                 <span className="flex items-center gap-1">{t.footer.madeWith} <Heart size={10} className="text-red-600 fill-red-600" /></span>
              </div>
              <a 
-               href="https://kutsev.studio" 
+               href="https://kutsev-studio.vercel.app" 
                target="_blank" 
                rel="noopener noreferrer" 
                className="hover:text-nyc-taxi transition-colors uppercase tracking-[0.2em] font-bold"

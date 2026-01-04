@@ -52,6 +52,7 @@ export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
           alt={alt}
           loading={priority ? "eager" : "lazy"}
           decoding={priority ? "sync" : "async"}
+          {...(priority ? { fetchPriority: "high" } : {})}
           onLoad={handleLoad}
           className={`${className} transition-all duration-700 ease-out ${
             isLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-2xl scale-110'
