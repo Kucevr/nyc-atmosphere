@@ -120,6 +120,7 @@ const Content = () => {
         </Suspense>
       </div>
     </LazyMotion>
+  );
 };
 
 function App() {
