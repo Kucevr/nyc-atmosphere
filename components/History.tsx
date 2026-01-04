@@ -12,7 +12,9 @@ const History: React.FC = () => {
   const [lineHeight, setLineHeight] = useState(0);
   const [activeIndices, setActiveIndices] = useState<number[]>([]);
   
-  // Use refs for throttling scroll updates
+  // Use refs for caching layout values to avoid forced reflows
+  const containerHeightRef = useRef<number>(0);
+  const sectionTopRef = useRef<number>(0);
   const lastUpdateTime = useRef<number>(0);
   const rafId = useRef<number>();
 
@@ -37,6 +39,14 @@ const History: React.FC = () => {
       }
     });
     stationPositions.current = positions;
+
+    // Cache container height and section top
+    if (containerRef.current) {
+      containerHeightRef.current = containerRef.current.offsetHeight;
+    }
+    if (sectionRef.current) {
+      sectionTopRef.current = sectionRef.current.offsetTop;
+    }
   }, []);
 
   useEffect(() => {
@@ -48,16 +58,14 @@ const History: React.FC = () => {
       if (now - lastUpdateTime.current < 16) return;
       lastUpdateTime.current = now;
 
-      if (!sectionRef.current || !containerRef.current) return;
-
       const windowHeight = window.innerHeight;
-      const sectionTop = sectionRef.current.offsetTop;
+      const sectionTop = sectionTopRef.current;
       const scrollY = window.scrollY;
       
       const triggerPoint = scrollY + (windowHeight * 0.60);
       const relativeY = triggerPoint - sectionTop;
       
-      const maxStringLength = containerRef.current.offsetHeight;
+      const maxStringLength = containerHeightRef.current;
       const currentHeight = Math.max(0, Math.min(relativeY, maxStringLength));
       
       setLineHeight(currentHeight);
