@@ -23,20 +23,20 @@ files.forEach(async (file) => {
 
     // Convert to WebP
     await sharp(filePath)
-      .webp({ quality: 80 })
+      .webp({ quality: 75 })
       .toFile(path.join(itemsDir, `${baseName}.webp`));
     
     // Convert to AVIF
     await sharp(filePath)
-      .avif({ quality: 60 })
+      .avif({ quality: 50, effort: 4 })
       .toFile(path.join(itemsDir, `${baseName}.avif`));
 
-    // Create 20px thumbnail for blur-up
+    // Create 20px thumbnail for blur-up (WebP for size)
     await sharp(filePath)
       .resize(20)
-      .blur(1)
-      .toFile(path.join(itemsDir, `${baseName}-thumb.jpg`));
+      .webp({ quality: 20 })
+      .toFile(path.join(itemsDir, `${baseName}-thumb.webp`));
 
-    console.log(`Converted ${file} to WebP, AVIF and created thumbnail.`);
+    console.log(`Converted ${file} to WebP, AVIF and created thumbnail (WebP).`);
   }
 });

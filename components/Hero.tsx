@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
           loop 
           playsInline
           preload="metadata"
-          poster="/items/TimesSquare.webp"
+          poster="/items/TimesSquare.avif"
         >
            <source src="/items/Herovideo.webm" type="video/webm" />
            <source src="/items/Herovideo.mp4" type="video/mp4" />
