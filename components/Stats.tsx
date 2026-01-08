@@ -64,7 +64,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ value, className }) =
   const formattedValue = isFloat ? displayValue.toFixed(1) : Math.round(displayValue).toString();
 
   return (
-    <span ref={elementRef} className={className}>
+    <span ref={elementRef} className={`${className} inline-block min-w-[1ch]`}>
       {hasAnimated ? formattedValue : '0'}{suffix}
     </span>
   );

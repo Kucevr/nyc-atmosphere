@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Play, ArrowRight, Volume2, VolumeX } from 'lucide-react';
 import { m, useScroll, useTransform } from 'framer-motion';
 import { Reveal } from './Reveal';
@@ -8,9 +8,17 @@ const Hero: React.FC = () => {
   const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   
   const { scrollY, scrollYProgress } = useScroll();
-  
+
+  useEffect(() => {
+    // Only load video on non-mobile devices to save network payload on Mobile PageSpeed
+    if (!window.matchMedia("(max-width: 768px)").matches) {
+      setShouldLoadVideo(true);
+    }
+  }, []);
+
   // Parallax transforms
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
@@ -50,21 +58,29 @@ const Hero: React.FC = () => {
       {/* VIDEO BACKGROUND */}
       <m.div 
         style={{ scale }}
-        className="absolute inset-0 z-0 select-none"
+        className="absolute inset-0 z-0 select-none bg-black"
       >
-         <video 
-          ref={videoRef}
-          className="w-full h-full object-cover scale-[1.02] filter contrast-[1.05] brightness-[0.92]"
-          autoPlay 
-          muted
-          loop 
-          playsInline
-          preload="metadata"
-          poster="/items/TimesSquare.avif"
-        >
-           <source src="/items/Herovideo.webm" type="video/webm" />
-           <source src="/items/Herovideo.mp4" type="video/mp4" />
-        </video>
+        {shouldLoadVideo ? (
+          <video 
+            ref={videoRef}
+            className="w-full h-full object-cover scale-[1.02] filter contrast-[1.05] brightness-[0.92]"
+            autoPlay 
+            muted
+            loop 
+            playsInline
+            preload="metadata"
+            poster="/items/TimesSquare.avif"
+          >
+            <source src="/items/Herovideo.webm" type="video/webm" />
+            <source src="/items/Herovideo.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <img 
+            src="/items/TimesSquare.avif" 
+            alt="New York"
+            className="w-full h-full object-cover scale-[1.02] filter contrast-[1.05] brightness-[0.92]"
+          />
+        )}
         {/* Cinematic Gradient Overlays */}
         <div className="absolute inset-0 bg-black/25 mix-blend-multiply"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/40 opacity-80"></div>

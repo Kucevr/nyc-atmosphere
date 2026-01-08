@@ -33,8 +33,9 @@ const Content = () => {
   const { t } = useLanguage();
   const { scrollYProgress } = useScroll();
   
-  // Variable font weight based on scroll
-  const fontWeight = useTransform(scrollYProgress, [0, 1], [400, 900]);
+  // Variable font weight based on scroll (Disable on mobile to avoid forced reflows)
+  const isMobile = typeof window !== 'undefined' ? window.matchMedia("(max-width: 768px)").matches : false;
+  const fontWeight = useTransform(scrollYProgress, [0, 1], isMobile ? [700, 700] : [400, 900]);
 
   return (
     <LazyMotion features={domMax}>

@@ -12,7 +12,7 @@ export const SmoothImage: React.FC<SmoothImageProps> = React.memo(({
   alt,
   src,
   priority = false,
-  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+  sizes = "(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 30vw",
   ...props 
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
