@@ -65,8 +65,8 @@ const Hero: React.FC = () => {
 
   return (
     <section id="hero" className="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center bg-black">
-      {/* Primary music for the Hero section */}
-      <audio ref={audioRef} src="/audio/Empire State of Mind - Jay-Z.mp3" loop />
+      {/* Primary music for the Hero section - Preload none to save initial bandwidth */}
+      <audio ref={audioRef} src="/audio/empire_state.mp3" loop preload="none" />
       
       {/* VIDEO BACKGROUND */}
       <m.div 
@@ -81,7 +81,7 @@ const Hero: React.FC = () => {
             muted
             loop 
             playsInline
-            preload="metadata"
+            preload="auto"
             poster="/items/TimesSquare.avif"
           >
             <source src="/items/Herovideo.webm" type="video/webm" />
@@ -91,6 +91,8 @@ const Hero: React.FC = () => {
           <img 
             src="/items/TimesSquare.avif" 
             alt="New York"
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover scale-[1.02] filter contrast-[1.05] brightness-[0.92]"
           />
         )}
