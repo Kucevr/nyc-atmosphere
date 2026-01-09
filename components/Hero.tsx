@@ -7,6 +7,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 const Hero: React.FC = () => {
   const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   
@@ -40,21 +41,34 @@ const Hero: React.FC = () => {
   };
 
   const toggleMute = () => {
-    if (videoRef.current) {
-      const newMutedState = !isMuted;
+    const newMutedState = !isMuted;
+    setIsMuted(newMutedState);
+
+    // If video is loaded, use its native audio
+    if (shouldLoadVideo && videoRef.current) {
       videoRef.current.muted = newMutedState;
-      videoRef.current.volume = 0.3;
-      setIsMuted(newMutedState);
+      videoRef.current.volume = 0.5;
       
-      // Play video if not playing (для мобильных устройств)
       if (videoRef.current.paused) {
         videoRef.current.play().catch(() => {});
+      }
+    } 
+    // If on mobile (no video), use the extracted audio file
+    else if (audioRef.current) {
+      if (!newMutedState) {
+        audioRef.current.play().catch(() => {});
+        audioRef.current.volume = 0.5;
+      } else {
+        audioRef.current.pause();
       }
     }
   };
 
   return (
     <section id="hero" className="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center bg-black">
+      {/* Audio fallback for mobile (identical to video audio) */}
+      {!shouldLoadVideo && <audio ref={audioRef} src="/audio/hero_audio.mp3" loop />}
+      
       {/* VIDEO BACKGROUND */}
       <m.div 
         style={{ scale }}
