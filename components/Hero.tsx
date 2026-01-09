@@ -44,30 +44,29 @@ const Hero: React.FC = () => {
     const newMutedState = !isMuted;
     setIsMuted(newMutedState);
 
-    // If video is loaded, use its native audio
-    if (shouldLoadVideo && videoRef.current) {
-      videoRef.current.muted = newMutedState;
-      videoRef.current.volume = 0.5;
-      
-      if (videoRef.current.paused) {
-        videoRef.current.play().catch(() => {});
-      }
-    } 
-    // If on mobile (no video), use the extracted audio file
-    else if (audioRef.current) {
+    // We always use the music file for the best experience
+    if (audioRef.current) {
       if (!newMutedState) {
         audioRef.current.play().catch(() => {});
-        audioRef.current.volume = 0.5;
+        audioRef.current.volume = 0.4;
       } else {
         audioRef.current.pause();
+      }
+    }
+
+    // Keep video muted to avoid clashing with the music
+    if (videoRef.current) {
+      videoRef.current.muted = true; 
+      if (videoRef.current.paused) {
+        videoRef.current.play().catch(() => {});
       }
     }
   };
 
   return (
     <section id="hero" className="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center bg-black">
-      {/* Audio fallback for mobile (identical to video audio) */}
-      {!shouldLoadVideo && <audio ref={audioRef} src="/audio/hero_audio.mp3" loop />}
+      {/* Primary music for the Hero section */}
+      <audio ref={audioRef} src="/audio/Empire State of Mind - Jay-Z.mp3" loop />
       
       {/* VIDEO BACKGROUND */}
       <m.div 
